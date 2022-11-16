@@ -226,6 +226,8 @@ function configuration(dataset, yAxisTitle, labelDisplay, legendDisplay) {
     data: dataset,
     options: {
       responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
       scales: {
         x: {
           stacked: true,
