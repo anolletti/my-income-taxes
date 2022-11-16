@@ -37,14 +37,14 @@ document
 
 // PROVINCIAL TAX DATA
 let provDataYear = 2022;
-let provBracket = [43835, 87671, 142534, 162383];
+let provBracket = [44887, 89775, 145955, 166280];
 let actualProvBracket = [];
-let provBracketPerc = [0.094, 0.1482, 0.165, 0.1784, 0.203];
+let provBracketPerc = [0.094, 0.1482, 0.1652, 0.1784, 0.203];
 
 // 2022 FEDERAL TAX DATA
 let fedDataYear = 2022;
 
-let fedBracket = [49020, 98040, 141978, 216611];
+let fedBracket = [50197, 100392, 155625, 221708];
 let actualFedBracket = [];
 let fedBracketPerc = [0.15, 0.205, 0.26, 0.29, 0.33];
 let eiRate = 0.0158;
