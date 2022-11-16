@@ -386,11 +386,8 @@
                       <label
                         for="rrspContributions"
                         class="col-sm-6 col-form-label text-end"
-                        ><span lang="en" name="rrspPopover" class="popover-text"
-                          >RRSP</span
-                        ><span lang="fr" name="rrspPopover" class="popover-text"
-                          >REÉR</span
-                        ></label
+                        ><span lang="en" name="rrspPopover">RRSP</span
+                        ><span lang="fr" name="rrspPopover">REÉR</span></label
                       >
                       <div
                         class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
@@ -850,7 +847,7 @@
           </div>
         </div>
       </div>
-      <h3 class="p-3">
+      <h3 class="p-3 text-center">
         <span lang="en"
           >Finally, let's take a look at your
           <span class="popover-text" name="netIncomePopover">net income.</span>
@@ -918,12 +915,21 @@
                     </td>
                     <td>- <span name="provTaxTotal"></span></td>
                   </tr>
+
                   <tr name="federalTaxPopover">
                     <td>
                       <span lang="en">Federal Tax</span
                       ><span lang="fr">Impôts fédéraux</span>
                     </td>
                     <td>- <span name="fedTaxTotal"></span></td>
+                  </tr>
+
+                  <tr name="deductionsPopover">
+                    <td>
+                      <span lang="en">Deductions</span
+                      ><span lang="fr">Retenues</span>
+                    </td>
+                    <td><span name="deductionsTotal"></span></td>
                   </tr>
 
                   <tr name="netIncomePopover">

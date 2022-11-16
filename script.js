@@ -155,6 +155,9 @@ function labelMaker(word) {
     if (word == "CPP") {
       label = "RPC";
     }
+    if (word == "Deductions") {
+      label = "Retenues";
+    }
     if (word == "Net Income") {
       label = "Salaire net";
     }
@@ -330,8 +333,6 @@ function onSubmit() {
     removeInnerText("fedTaxTotal");
     removeInnerText("netIncome");
     currencyFormatter();
-
-    console.log(totalDeductions);
 
     grossIncome = numOnly(grossIncomeField.value);
     let taxableIncome =
@@ -511,7 +512,7 @@ function onSubmit() {
       if ($(window).width() > 960) {
         config3 = configuration(
           netIncomeData,
-          labelMaker("Net Income"),
+          labelMaker("My Income"),
           false,
           true
         );
@@ -519,7 +520,7 @@ function onSubmit() {
       if ($(window).width() < 960) {
         config3 = configuration(
           netIncomeData,
-          labelMaker("Net Income"),
+          labelMaker("My Income"),
           false,
           false
         );
@@ -552,6 +553,9 @@ function onSubmit() {
     ]);
     addData(netIncomeChart, `${labelMaker("CPP")} `, colors[3], [cppPremium]);
     addData(netIncomeChart, `${labelMaker("EI")} `, colors[4], [eiPremium]);
+    addData(netIncomeChart, `${labelMaker("Deductions")} `, colors[5], [
+      totalDeductions,
+    ]);
   }
 }
 
@@ -655,9 +659,7 @@ function formatCurrency(input, blur) {
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
 
-// POPOVER
-
-// TOOLTIP & POPOVER SETUP
+// POPOVERS
 
 function createPopover(eName, titleContent, bodyContent) {
   const e = document.getElementsByName(eName);
