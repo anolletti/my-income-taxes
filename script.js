@@ -1,10 +1,30 @@
-$('[lang="fr"]').hide();
-
-let grossIncome, label, language;
+let grossIncome, label;
 let totalDeductions = 0;
 let alreadySubmitted = false;
+let provDataChart = null;
+let fedDataChart = null;
+let netIncomeChart = null;
+let language = "en";
+const currencyFr = "fr-CA";
+const currencyEn = "en-CA";
 
-language = "en";
+// PROVINCIAL TAX DATA
+let provDataYear = 2022;
+let provBracket = [44887, 89775, 145955, 166280];
+let actualProvBracket = [];
+let provBracketPerc = [0.094, 0.1482, 0.1652, 0.1784, 0.203];
+
+// 2022 FEDERAL TAX DATA
+let fedDataYear = 2022;
+let fedBracket = [50197, 100392, 155625, 221708];
+let actualFedBracket = [];
+let fedBracketPerc = [0.15, 0.205, 0.26, 0.29, 0.33];
+let eiRate = 0.0158;
+let eiMax = 952.74;
+let cppRate = 0.057;
+let cppMax = 3499.8;
+
+$('[lang="fr"]').hide();
 
 const languageButton = document.getElementById("languageButton");
 languageButton.addEventListener("click", function () {
@@ -35,35 +55,12 @@ document
     document.getElementById("1").classList.remove("d-none");
   });
 
-// PROVINCIAL TAX DATA
-let provDataYear = 2022;
-let provBracket = [44887, 89775, 145955, 166280];
-let actualProvBracket = [];
-let provBracketPerc = [0.094, 0.1482, 0.1652, 0.1784, 0.203];
-
-// 2022 FEDERAL TAX DATA
-let fedDataYear = 2022;
-
-let fedBracket = [50197, 100392, 155625, 221708];
-let actualFedBracket = [];
-let fedBracketPerc = [0.15, 0.205, 0.26, 0.29, 0.33];
-let eiRate = 0.0158;
-let eiMax = 952.74;
-let cppRate = 0.057;
-let cppMax = 3499.8;
-
 // Create our number formatter.
-
-const currencyFr = "fr-CA";
-const currencyEn = "en-CA";
 
 function currencyFormatter() {
   let currency;
-  if (language == "fr") {
-    currency = currencyFr;
-  } else {
-    currency = currencyEn;
-  }
+  language == "fr" ? (currency = currencyFr) : (currency = currencyEn);
+
   formatter = new Intl.NumberFormat(currency, {
     style: "currency",
     currency: "CAD",
@@ -130,20 +127,18 @@ saveDeductions.addEventListener("click", function () {
 });
 
 function eiCalculation(grossIncomeInput) {
-  if (eiRate * grossIncomeInput < eiMax) {
-    eiPremium = eiRate * grossIncomeInput;
-  } else {
-    eiPremium = eiMax;
-  }
+  eiRate * grossIncomeInput < eiMax
+    ? (eiPremium = eiRate * grossIncomeInput)
+    : (eiPremium = eiMax);
+
   return eiPremium;
 }
 
 function cppCalculation(grossIncomeInput) {
-  if (cppRate * grossIncomeInput < cppMax) {
-    cppPremium = cppRate * grossIncomeInput;
-  } else {
-    cppPremium = cppMax;
-  }
+  cppRate * grossIncomeInput < cppMax
+    ? (cppPremium = cppRate * grossIncomeInput)
+    : (cppPremium = cppMax);
+
   return cppPremium;
 }
 
@@ -313,10 +308,6 @@ const grossIncomeField = document.getElementById("grossIncomeField");
 Chart.defaults.font.size = 16;
 Chart.defaults.plugins.legend.position = "bottom";
 Chart.defaults.plugins.legend.labels.padding = 20;
-
-let provDataChart = null;
-let fedDataChart = null;
-let netIncomeChart = null;
 
 function onSubmit() {
   if (document.getElementById("grossIncomeField").value != "") {
@@ -584,7 +575,7 @@ function isInBracket(taxBrackets, income) {
   if (income > taxBrackets[taxBrackets.length - 1]) {
     bracketTotals.push(income - taxBrackets[taxBrackets.length - 1]);
   }
-  console.log(bracketTotals);
+
   return bracketTotals;
 }
 
@@ -807,32 +798,6 @@ function setPopoversEn() {
     "You can reduce your taxable income by subtracting deductions."
   );
 
-  // POPOVERS FOR PROVINCIAL BRACKETS
-
-  for (let i = 0; i < provBracketPerc.length; i++) {
-    if (i == 0) {
-      createPopover(
-        "bracket1tooltip",
-        `Bracket ${i + 1}`,
-        `${(provBracketPerc[i] * 100).toFixed(
-          1
-        )}% on the portion of your taxable income that is ${formatter.format(
-          provBracket[i]
-        )} or less`
-      );
-    } else {
-      createPopover(
-        `bracket${i + 1}tooltip`,
-        `Bracket ${i + 1}`,
-        `${(provBracketPerc[i] * 100).toFixed(
-          1
-        )}% on the portion of your taxable income that is more than ${formatter.format(
-          provBracket[i - 1]
-        )} but not more than ${formatter.format(provBracket[i])} `
-      );
-    }
-  }
-
   createPopover(
     `bracket5tooltip`,
     `Bracket 5`,
@@ -842,31 +807,6 @@ function setPopoversEn() {
       provBracket[3]
     )}`
   );
-
-  // TOOLTIP CONTENT FOR FEDERAL TAX BRACKETS
-  for (let i = 0; i < fedBracketPerc.length; i++) {
-    if (i == 0) {
-      createPopover(
-        "bracket1tooltipfed",
-        `Bracket ${i + 1}`,
-        `${(fedBracketPerc[i] * 100).toFixed(
-          1
-        )}% on the portion of your taxable income that is ${formatter.format(
-          fedBracket[i]
-        )} or less`
-      );
-    } else {
-      createPopover(
-        `bracket${i + 1}tooltipfed`,
-        `Bracket ${i + 1}`,
-        `${(fedBracketPerc[i] * 100).toFixed(
-          1
-        )}% on the portion of your taxable income that is more than ${formatter.format(
-          fedBracket[i - 1]
-        )} but not more than ${formatter.format(fedBracket[i])} `
-      );
-    }
-  }
 
   createPopover(
     `bracket5tooltipfed`,
@@ -889,11 +829,7 @@ function setPopovers() {
     });
   });
 
-  if (language == "fr") {
-    setPopoversFr();
-  } else {
-    setPopoversEn();
-  }
+  language == "fr" ? setPopoversFr() : setPopoversEn();
 }
 
 setPopovers();
