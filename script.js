@@ -44,9 +44,7 @@ languageButton.addEventListener("click", function () {
       .getElementById("grossIncomeField")
       .setAttribute("placeholder", "Gross Income");
   }
-  if (grossIncomeField != null) {
-    onSubmit();
-  }
+  grossIncomeField && onSubmit();
 });
 
 document
@@ -390,9 +388,8 @@ function onSubmit() {
     );
     provData.datasets = [];
 
-    if (provDataChart != null) {
-      provDataChart.destroy();
-    }
+    provDataChart && provDataChart.destroy();
+
     provDataChart = new Chart(document.getElementById("myChart"), configProv);
 
     provDataChart.update();
@@ -464,9 +461,8 @@ function onSubmit() {
     );
     fedData.datasets = [];
 
-    if (fedDataChart != null) {
-      fedDataChart.destroy();
-    }
+    fedDataChart && fedDataChart.destroy();
+
     fedDataChart = new Chart(document.getElementById("fedChart"), configFed);
 
     fedDataChart.update();
@@ -524,9 +520,8 @@ function onSubmit() {
 
     netIncomeData.datasets = [];
 
-    if (netIncomeChart != null) {
-      netIncomeChart.destroy();
-    }
+    netIncomeChart && netIncomeChart.destroy();
+
     netIncomeChart = new Chart(
       document.getElementById("netIncomeChart"),
       configNetIncome
