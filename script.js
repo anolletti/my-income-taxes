@@ -574,7 +574,7 @@ function isInBracket(taxBrackets, income) {
     for (let i = 1; i < taxBrackets.length; i++) {
       if (income > taxBrackets[i]) {
         bracketTotals[i] = taxBrackets[i] - taxBrackets[i - 1];
-      } else if (income < provBracket[i] && income > provBracket[i - 1]) {
+      } else if (income < taxBrackets[i] && income > taxBrackets[i - 1]) {
         bracketTotals[i] = income - taxBrackets[i - 1];
       } else {
         bracketTotals[i] = 0;
@@ -584,6 +584,7 @@ function isInBracket(taxBrackets, income) {
   if (income > taxBrackets[taxBrackets.length - 1]) {
     bracketTotals.push(income - taxBrackets[taxBrackets.length - 1]);
   }
+  console.log(bracketTotals);
   return bracketTotals;
 }
 
