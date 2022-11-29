@@ -331,6 +331,10 @@ function onSubmit() {
       eiCalculation(grossIncome) -
       totalDeductions;
 
+    if (taxableIncome < 0) {
+      taxableIncome = 0;
+    }
+
     nameInnerText("grossIncome2", formatter.format(grossIncome));
     nameInnerText("taxableIncome", formatter.format(taxableIncome));
     nameInnerText("cpp", `- ${formatter.format(cppCalculation(grossIncome))}`);
