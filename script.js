@@ -1,18 +1,52 @@
-let grossIncome, label;
+let grossIncome, label, provDataYear;
+let provBracket = [];
+let actualProvBracket = [];
+let provBracketPerc = [];
 let totalDeductions = 0;
 let alreadySubmitted = false;
 let provDataChart = null;
 let fedDataChart = null;
 let netIncomeChart = null;
 let language = "en";
+let provinceSelected = false;
+let province = "NB";
+const provinceList = document.getElementById("provinceList");
 const currencyFr = "fr-CA";
 const currencyEn = "en-CA";
 
+provinceList.addEventListener("change", function (e) {
+  if (e.target.value != "none") {
+    province = e.target.value;
+    provinceList.classList.remove("text-secondary");
+    provinceSelected = true;
+    selectData();
+    if (grossIncome) {
+      onSubmit();
+    }
+  } else {
+    provinceList.classList.add("text-secondary");
+    provinceSelected = false;
+  }
+});
+
 // PROVINCIAL TAX DATA
-let provDataYear = 2022;
-let provBracket = [44887, 89775, 145955, 166280];
-let actualProvBracket = [];
-let provBracketPerc = [0.094, 0.1482, 0.1652, 0.1784, 0.203];
+function selectData() {
+  if (province == "NB") {
+    provDataYear = 2022;
+    provBracket = [44887, 89775, 145955, 166280];
+    actualProvBracket = [];
+    provBracketPerc = [0.094, 0.1482, 0.1652, 0.1784, 0.203];
+  }
+
+  if (province == "ON") {
+    provDataYear = 2022;
+    provBracket = [46226, 92454, 150000, 220000];
+    actualProvBracket = [];
+    provBracketPerc = [0.0505, 0.0915, 0.1116, 0.1216, 0.1316];
+  }
+}
+
+selectData();
 
 // 2022 FEDERAL TAX DATA
 let fedDataYear = 2022;
@@ -44,7 +78,7 @@ languageButton.addEventListener("click", function () {
       .getElementById("grossIncomeField")
       .setAttribute("placeholder", "Gross Income");
   }
-  grossIncomeField && onSubmit();
+  grossIncome && onSubmit();
 });
 
 document
@@ -187,6 +221,10 @@ function labelMaker(word) {
     if (word == "of") {
       label = "de";
     }
+    if (word == "You must enter a gross income AND select a province.") {
+      label =
+        "Il faut saisir votre salaire brut ET selectionnez votre province.";
+    }
   } else {
     label = word;
   }
@@ -308,6 +346,12 @@ Chart.defaults.plugins.legend.position = "bottom";
 Chart.defaults.plugins.legend.labels.padding = 20;
 
 function onSubmit() {
+  if (!provinceSelected || !grossIncomeField.value) {
+    alert(
+      `${labelMaker("You must enter a gross income AND select a province.")}`
+    );
+    return false;
+  }
   if (document.getElementById("grossIncomeField").value != "") {
     alreadySubmitted = true;
     for (let i = 2; i < 6; i++) {
@@ -380,7 +424,7 @@ function onSubmit() {
 
     // Provincial Graph
     const provData = {
-      labels: [`Provincial: ${labelMaker("New Brunswick")} (${provDataYear})`],
+      labels: [`Provincial: ${province} (${provDataYear})`],
       datasets: [],
     };
 

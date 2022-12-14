@@ -25,7 +25,7 @@
       content="Teach gross income, taxable income, taxable income, deductions, EI/CPP, provincial and federal taxes."
     />
     <meta property="og:image" content="images/site_preview.png" />
-    <title lang="en">Tax Visualizer for NB Students</title>
+    <title lang="en">My Income Taxes</title>
     <title lang="fr">Visualiser mon salaire</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   </head>
@@ -183,7 +183,7 @@
         />
 
         <h1 class="text-center p-2">
-          <span lang="en">Income Visualizer for NB Students</span
+          <span lang="en">My Income Taxes</span
           ><span lang="fr">Visualiser mon salaire</span>
         </h1>
       </div>
@@ -319,10 +319,10 @@
             </h2>
             <label for="grossIncome">
               <input
-                class="form-control form-control-lg m-2"
+                class="form-control form-control-lg m-1"
                 type="text"
                 id="grossIncomeField"
-                name="grossIncomeForm"
+                name="grossIncome"
                 onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                 data-type="currency"
                 title="Numbers only"
@@ -330,34 +330,29 @@
             /></label>
             <span lang="fr"><h2 class="m-2">$</h2></span>
           </div>
+
           <div
-            class="col-xs-12 col-md-auto m-xs-2 d-flex flex-column justify-content-center align-items-center"
-          ></div>
-          <div
-            class="col-xs-12 col-md-auto d-flex flex-column justify-content-center align-items-center mb-1"
+            class="col-xs-12 col-md-auto d-flex flex-column justify-content-center align-items-center m-1"
           >
-            <a href="#2">
-              <label for="submit">
-                <button
-                  type="button"
-                  class="btn btn-info"
-                  id="button0"
-                  name="grossIncomeForm"
-                >
-                  <b>
-                    <span lang="en">CALCULATE</span
-                    ><span lang="fr">CALCULER</span>
-                  </b>
-                </button></label
-              ></a
+            <select
+              class="form-control form-control-lg text-center text-secondary p-2"
+              name="provinceList"
+              id="provinceList"
+              aria-label="Select a Province"
             >
+              <option value="none" selected>
+                <span class="text-secondary">- Province -</span>
+              </option>
+              <option value="NB">NB</option>
+              <option value="ON">ON</option>
+            </select>
           </div>
 
           <div
-            class="col-xs-12 col-md-auto d-flex flex-column justify-content-center align-items-center mb-1"
+            class="col-xs-12 col-md-auto d-flex flex-column justify-content-center align-items-center m-1"
           >
             <button
-              class="btn btn-secondary"
+              class="btn btn-secondary btn-lg p-2"
               data-bs-toggle="modal"
               data-bs-target="#deductionsModal"
               id="deductionsModalbutton"
@@ -365,228 +360,243 @@
               <span lang="en">Deductions</span><span lang="fr">Retenues</span>
             </button>
           </div>
-
-          <!-- Deductions Modal -->
-          <div
-            class="modal fade"
-            id="deductionsModal"
-            role="dialog"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="deductionsModalLabel">
-                    <b>
-                      <span lang="en">Deductions</span
-                      ><span lang="fr">Retenues d'impôts</span></b
-                    >
-                  </h4>
-                </div>
-                <div class="modal-body">
-                  <p class="text-start" lang="en">
-                    You can reduce your taxable income with deductions. Use the
-                    Canada Revenue Agency website to verify maximum deductions
-                    in each category.
-                  </p>
-                  <p class="text-start" lang="fr">
-                    Vous pouvez réduire votre revenu imposable grâce à des
-                    déductions. Vous pouvez vérifier les déductions maximales
-                    que vous pouvez faire dans chaque catégorie en utilisant le
-                    site Web de l'Agence du revenu du Canada.
-                  </p>
-                  <div class="bevel">
-                    <div class="form-group row m-2">
-                      <label
-                        for="rrspContributions"
-                        class="col-sm-6 col-form-label text-end"
-                        ><span lang="en" name="rrspPopover">RRSP</span
-                        ><span lang="fr" name="rrspPopover">REÉR</span></label
-                      >
-                      <div
-                        class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
-                      >
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="en">$</span></b>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          type="text"
-                          class="form-control"
-                          name="deductions"
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          value=""
-                          data-type="currency"
-                          id="rrspContributions"
-                        />
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="fr">$</span></b>
-                        </div>
-                      </div>
+        </div>
+      </div>
+      <div
+        class="col-xs-12 col-md-auto d-flex flex-column justify-content-center align-items-center"
+      >
+        <a href="#2">
+          <label for="submit">
+            <button
+              type="button"
+              class="btn btn-info btn-lg m-4"
+              id="button0"
+              name="grossIncomeForm"
+            >
+              <b>
+                <span lang="en">CALCULATE</span><span lang="fr">CALCULER</span>
+              </b>
+            </button></label
+          ></a
+        >
+      </div>
+      <!-- Deductions Modal -->
+      <div
+        class="modal fade"
+        id="deductionsModal"
+        role="dialog"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="deductionsModalLabel">
+                <b>
+                  <span lang="en">Deductions</span
+                  ><span lang="fr">Retenues d'impôts</span></b
+                >
+              </h4>
+            </div>
+            <div class="modal-body">
+              <p class="text-start" lang="en">
+                You can reduce your taxable income with deductions. Use the
+                Canada Revenue Agency website to verify maximum deductions in
+                each category.
+              </p>
+              <p class="text-start" lang="fr">
+                Vous pouvez réduire votre revenu imposable grâce à des
+                déductions. Vous pouvez vérifier les déductions maximales que
+                vous pouvez faire dans chaque catégorie en utilisant le site Web
+                de l'Agence du revenu du Canada.
+              </p>
+              <div class="bevel">
+                <div class="form-group row m-2">
+                  <label
+                    for="rrspContributions"
+                    class="col-sm-6 col-form-label text-end"
+                    ><span lang="en" name="rrspPopover">RRSP</span
+                    ><span lang="fr" name="rrspPopover">REÉR</span></label
+                  >
+                  <div
+                    class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
+                  >
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="en">$</span></b>
                     </div>
-                    <div class="form-group row m-2">
-                      <label
-                        for="studentLoan"
-                        class="col-sm-6 col-form-label text-end"
-                        ><span lang="en">Student Loan Interest</span
-                        ><span lang="fr"
-                          >Intérêts sur les prêts étudiants</span
-                        ></label
-                      >
-
-                      <div
-                        class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
-                      >
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="en">$</span></b>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="studentLoan"
-                          name="deductions"
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          value=""
-                          data-type="currency"
-                        />
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="fr">$</span></b>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row m-2">
-                      <label
-                        for="donations"
-                        class="col-sm-6 col-form-label text-end"
-                        ><span lang="en">Donations</span
-                        ><span lang="fr">Dons de bienfaisance</span></label
-                      >
-                      <div
-                        class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
-                      >
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="en">$</span></b>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="donations"
-                          name="deductions"
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          value=""
-                          data-type="currency"
-                        />
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="fr">$</span></b>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row m-2">
-                      <label
-                        for="movingCosts"
-                        class="col-sm-6 col-form-label text-end"
-                        ><span lang="en">Moving Costs</span
-                        ><span lang="fr">Frais de déménagement </span></label
-                      >
-                      <div
-                        class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
-                      >
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="en">$</span></b>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="movingCosts"
-                          name="deductions"
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          value=""
-                          data-type="currency"
-                        />
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="fr">$</span></b>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row m-2">
-                      <label
-                        for="unionDues"
-                        class="col-sm-6 col-form-label text-end"
-                        ><span lang="en">Union Dues</span
-                        ><span lang="fr">Côtisations syndicales</span></label
-                      >
-                      <div
-                        class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
-                      >
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="en">$</span></b>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="unionDues"
-                          name="deductions"
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          value=""
-                          data-type="currency"
-                        />
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="fr">$</span></b>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row m-2">
-                      <label
-                        for="other"
-                        class="col-sm-6 col-form-label text-end"
-                        ><span lang="en">Other</span
-                        ><span lang="fr">Autre</span></label
-                      >
-                      <div
-                        class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
-                      >
-                        <div class="align-middle align-items-center p-1">
-                          <b
-                            ><span lang="en"><span lang="en">$</span></span></b
-                          >
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="deductions"
-                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          value=""
-                          data-type="currency"
-                          id="other"
-                        />
-                        <div class="align-middle align-items-center p-1">
-                          <b><span lang="fr">$</span></b>
-                        </div>
-                      </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      type="text"
+                      class="form-control"
+                      name="deductions"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      value=""
+                      data-type="currency"
+                      id="rrspContributions"
+                    />
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="fr">$</span></b>
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    id="clearDeductions"
+                <div class="form-group row m-2">
+                  <label
+                    for="studentLoan"
+                    class="col-sm-6 col-form-label text-end"
+                    ><span lang="en">Student Loan Interest</span
+                    ><span lang="fr"
+                      >Intérêts sur les prêts étudiants</span
+                    ></label
                   >
-                    <span lang="en">Clear</span><span lang="fr">Effacer</span>
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-dismiss="modal"
-                    id="saveDeductions"
+
+                  <div
+                    class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
                   >
-                    <span lang="en">Save Changes</span
-                    ><span lang="fr">Enregistrer</span>
-                  </button>
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="en">$</span></b>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="studentLoan"
+                      name="deductions"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      value=""
+                      data-type="currency"
+                    />
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="fr">$</span></b>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row m-2">
+                  <label
+                    for="donations"
+                    class="col-sm-6 col-form-label text-end"
+                    ><span lang="en">Donations</span
+                    ><span lang="fr">Dons de bienfaisance</span></label
+                  >
+                  <div
+                    class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
+                  >
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="en">$</span></b>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="donations"
+                      name="deductions"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      value=""
+                      data-type="currency"
+                    />
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="fr">$</span></b>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row m-2">
+                  <label
+                    for="movingCosts"
+                    class="col-sm-6 col-form-label text-end"
+                    ><span lang="en">Moving Costs</span
+                    ><span lang="fr">Frais de déménagement </span></label
+                  >
+                  <div
+                    class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
+                  >
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="en">$</span></b>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="movingCosts"
+                      name="deductions"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      value=""
+                      data-type="currency"
+                    />
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="fr">$</span></b>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row m-2">
+                  <label
+                    for="unionDues"
+                    class="col-sm-6 col-form-label text-end"
+                    ><span lang="en">Union Dues</span
+                    ><span lang="fr">Côtisations syndicales</span></label
+                  >
+                  <div
+                    class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
+                  >
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="en">$</span></b>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="unionDues"
+                      name="deductions"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      value=""
+                      data-type="currency"
+                    />
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="fr">$</span></b>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row m-2">
+                  <label for="other" class="col-sm-6 col-form-label text-end"
+                    ><span lang="en">Other</span
+                    ><span lang="fr">Autre</span></label
+                  >
+                  <div
+                    class="col-sm-6 d-flex flex-row justify-content-center align-items-center"
+                  >
+                    <div class="align-middle align-items-center p-1">
+                      <b
+                        ><span lang="en"><span lang="en">$</span></span></b
+                      >
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="deductions"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      value=""
+                      data-type="currency"
+                      id="other"
+                    />
+                    <div class="align-middle align-items-center p-1">
+                      <b><span lang="fr">$</span></b>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="clearDeductions"
+              >
+                <span lang="en">Clear</span><span lang="fr">Effacer</span>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                id="saveDeductions"
+              >
+                <span lang="en">Save Changes</span
+                ><span lang="fr">Enregistrer</span>
+              </button>
             </div>
           </div>
         </div>
@@ -1026,12 +1036,6 @@
       </ul>
       <p class="text-center text-muted">© 2022 Anthony Nolletti</p>
     </footer>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
 
