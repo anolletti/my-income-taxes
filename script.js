@@ -61,17 +61,20 @@ let cppMax = 3499.8;
 $('[lang="fr"]').hide();
 
 const languageButton = document.getElementById("languageButton");
+languageButton.innerHTML = `<i class="fa-solid fa-earth-americas"></i> FR`;
 languageButton.addEventListener("click", function () {
   $('[lang="fr"]').toggle();
   $('[lang="en"]').toggle();
 
   if (language == "en") {
+    languageButton.innerHTML = `<i class="fa-solid fa-earth-americas"></i> EN`;
     language = "fr";
     setPopovers();
     document
       .getElementById("grossIncomeField")
       .setAttribute("placeholder", "Salaire brut");
   } else if (language == "fr") {
+    languageButton.innerHTML = `<i class="fa-solid fa-earth-americas"></i> FR`;
     language = "en";
     setPopovers();
     document
