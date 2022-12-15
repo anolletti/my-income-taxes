@@ -107,3 +107,7 @@ h6 {
 .topnav {
   position: absolute;
 }
+
+#provinceList {
+  width: 150px;
+}
