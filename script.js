@@ -421,6 +421,10 @@ function onSubmit() {
     alert(
       `${labelMaker("You must enter a gross income AND select a province.")}`
     );
+    for (let i = 2; i < 6; i++) {
+      let section = document.getElementById(`${i}`);
+      section.classList.add("d-none");
+    }
     return false;
   }
   if (document.getElementById("grossIncomeField").value != "") {
