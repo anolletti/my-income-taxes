@@ -13,13 +13,90 @@ let province = "NB";
 const provinceList = document.getElementById("provinceList");
 const currencyFr = "fr-CA";
 const currencyEn = "en-CA";
+let tax_data_js = {
+  NL: {
+    name: "Newfoundland and Labrador",
+    brackets: [39147, 78294, 139780, 195693, 250000, 500000, 1000000],
+    rates: [0.087, 0.145, 0.158, 0.178, 0.198, 0.208, 0.213, 0.218],
+  },
+  PE: {
+    name: "Prince Edward Island",
+    brackets: [31984, 63969],
+    rates: [0.098, 0.138, 0.167],
+  },
+  NS: {
+    name: "Nova Scotia",
+    brackets: [29590, 59180, 93000, 150000],
+    rates: [0.0879, 0.1495, 0.1667, 0.175, 0.21],
+  },
+  NB: {
+    name: "New Brunswick",
+    brackets: [44887, 89775, 145955, 166280],
+    rates: [0.094, 0.1482, 0.1652, 0.1784, 0.203],
+  },
+  QC: {
+    name: "Quebec",
+    brackets: [46295, 92580, 112655],
+    rates: [0.15, 0.2, 0.24, 0.2575],
+  },
+  ON: {
+    name: "Ontario",
+    brackets: [46226, 92454, 150000, 220000],
+    rates: [0.0505, 0.0915, 0.1116, 0.1216, 0.1316],
+  },
+  MB: {
+    name: "Manitoba",
+    brackets: [34431, 74416],
+    rates: [0.108, 0.1275, 0.174],
+  },
+  SK: {
+    name: "Saskatchewan",
+    brackets: [46773, 133638],
+    rates: [0.105, 0.125, 0.145],
+  },
+  AB: {
+    name: "Alberta",
+    brackets: [131220, 157464, 209952, 314928],
+    rates: [0.1, 0.12, 0.13, 0.14, 0.15],
+  },
+  BC: {
+    name: "British Columbia",
+    brackets: [43070, 86141, 98901, 120094, 162832, 227091],
+    rates: [0.0506, 0.077, 0.105, 0.1229, 0.147, 0.168, 0.205],
+  },
+  YT: {
+    name: "Yukon",
+    brackets: [50197, 100392, 155625, 500000],
+    rates: [0.064, 0.09, 0.109, 0.128, 0.15],
+  },
+  NT: {
+    name: "Northwest Territories",
+    brackets: [45462, 90927, 147826],
+    rates: [0.059, 0.086, 0.122, 0.1405],
+  },
+  NU: {
+    name: "Nunavut",
+    brackets: [47862, 95724, 155625],
+    rates: [0.04, 0.07, 0.09, 0.115],
+  },
+};
+
+// Setting Province List
+provinceList.innerHTML = `
+    <option value="none" class="text-secondary" selected>- Province -</option>`;
+
+for (let i = 0; i < Object.keys(tax_data_js).length; i++) {
+  provinceList.innerHTML += `<option value="${Object.keys(tax_data_js)[i]}">${
+    Object.keys(tax_data_js)[i]
+  }</option>`;
+}
 
 provinceList.addEventListener("change", function (e) {
   if (e.target.value != "none") {
     province = e.target.value;
     provinceList.classList.remove("text-secondary");
     provinceSelected = true;
-    selectData();
+    selectData(province);
     if (grossIncome) {
       onSubmit();
     }
@@ -30,23 +107,14 @@ provinceList.addEventListener("change", function (e) {
 });
 
 // PROVINCIAL TAX DATA
-function selectData() {
-  if (province == "NB") {
-    provDataYear = 2022;
-    provBracket = [44887, 89775, 145955, 166280];
-    actualProvBracket = [];
-    provBracketPerc = [0.094, 0.1482, 0.1652, 0.1784, 0.203];
-  }
-
-  if (province == "ON") {
-    provDataYear = 2022;
-    provBracket = [46226, 92454, 150000, 220000];
-    actualProvBracket = [];
-    provBracketPerc = [0.0505, 0.0915, 0.1116, 0.1216, 0.1316];
-  }
+function selectData(province) {
+  provDataYear = 2022;
+  provBracket = tax_data_js[province]["brackets"];
+  actualProvBracket = [];
+  provBracketPerc = tax_data_js[province]["rates"];
 }
 
-selectData();
+selectData(province);
 
 // 2022 FEDERAL TAX DATA
 let fedDataYear = 2022;
