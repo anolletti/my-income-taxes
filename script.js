@@ -130,7 +130,7 @@ $('[lang="fr"]').hide();
 
 const languageButton = document.getElementById("languageButton");
 languageButton.innerHTML = `<i class="fa-solid fa-earth-americas"></i> FR`;
-languageButton.addEventListener("click", function () {
+languageButton.addEventListener("click touchstart", function () {
   $('[lang="fr"]').toggle();
   $('[lang="en"]').toggle();
 
@@ -154,7 +154,7 @@ languageButton.addEventListener("click", function () {
 
 document
   .getElementById("section1reveal")
-  .addEventListener("click", function () {
+  .addEventListener("click touchstart", function () {
     document.getElementById("1").classList.remove("d-none");
   });
 
@@ -205,7 +205,7 @@ function clearDeductions() {
 }
 document
   .getElementById("clearDeductions")
-  .addEventListener("click", clearDeductions);
+  .addEventListener("click touchstart", clearDeductions);
 
 const nameInnerText = (elementName, innerContent) => {
   const nameElements = document.getElementsByName(elementName);
@@ -222,8 +222,8 @@ const removeInnerText = (elementName) => {
 };
 
 const saveDeductions = document.getElementById("saveDeductions");
-saveDeductions.addEventListener("click", addDeductions);
-saveDeductions.addEventListener("click", function () {
+saveDeductions.addEventListener("click touchstart", addDeductions);
+saveDeductions.addEventListener("click touchstart", function () {
   if (alreadySubmitted) {
     onSubmit();
   }
@@ -669,7 +669,7 @@ function onSubmit() {
   }
 }
 
-submitButton.addEventListener("click", onSubmit);
+submitButton.addEventListener("click touchstart", onSubmit);
 
 // Tax Brackets indicate the ACTUAL tax bracket array of the user, along with their gross income input
 
