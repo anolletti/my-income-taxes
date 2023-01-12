@@ -158,11 +158,16 @@ document
     document.getElementById("1").classList.remove("d-none");
   });
 
+// Temporary mobile bug fixes
 document
   .getElementById("section1reveal")
   .addEventListener("touchstart", function () {
     document.getElementById("1").classList.remove("d-none");
   });
+
+document.body.addEventListener("touchstart", function () {
+  grossIncomeField.blur();
+});
 
 // Create our number formatter.
 
