@@ -81,6 +81,14 @@ let tax_data_js = {
   },
 };
 
+// Override hover states for mobile touch
+$("button").on("touchstart", function () {
+  $(this).removeClass("mobileHoverFix");
+});
+$("button").on("touchend", function () {
+  $(this).addClass("mobileHoverFix");
+});
+
 // Setting Province List
 provinceList.innerHTML = `
     <option value="none" class="text-secondary" selected>- Province -</option>`;
@@ -130,7 +138,7 @@ $('[lang="fr"]').hide();
 
 const languageButton = document.getElementById("languageButton");
 languageButton.innerHTML = `<i class="fa-solid fa-earth-americas"></i> FR`;
-languageButton.addEventListener("click touchstart", function () {
+languageButton.addEventListener("click", function () {
   $('[lang="fr"]').toggle();
   $('[lang="en"]').toggle();
 
@@ -154,7 +162,7 @@ languageButton.addEventListener("click touchstart", function () {
 
 document
   .getElementById("section1reveal")
-  .addEventListener("click touchstart", function () {
+  .addEventListener("click", function () {
     document.getElementById("1").classList.remove("d-none");
   });
 
@@ -205,7 +213,7 @@ function clearDeductions() {
 }
 document
   .getElementById("clearDeductions")
-  .addEventListener("click touchstart", clearDeductions);
+  .addEventListener("click", clearDeductions);
 
 const nameInnerText = (elementName, innerContent) => {
   const nameElements = document.getElementsByName(elementName);
@@ -222,8 +230,8 @@ const removeInnerText = (elementName) => {
 };
 
 const saveDeductions = document.getElementById("saveDeductions");
-saveDeductions.addEventListener("click touchstart", addDeductions);
-saveDeductions.addEventListener("click touchstart", function () {
+saveDeductions.addEventListener("click", addDeductions);
+saveDeductions.addEventListener("click", function () {
   if (alreadySubmitted) {
     onSubmit();
   }
@@ -669,7 +677,7 @@ function onSubmit() {
   }
 }
 
-submitButton.addEventListener("click touchstart", onSubmit);
+submitButton.addEventListener("click", onSubmit);
 
 // Tax Brackets indicate the ACTUAL tax bracket array of the user, along with their gross income input
 

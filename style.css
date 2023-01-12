@@ -111,3 +111,10 @@ h6 {
 #provinceList {
   width: 150px;
 }
+
+/* Mobile hover fix */
+
+.mobileHoverFix:hover,
+.mobileHoverFix.hover {
+  background-position: 0 0px;
+}
