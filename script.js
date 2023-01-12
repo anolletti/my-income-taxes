@@ -81,14 +81,6 @@ let tax_data_js = {
   },
 };
 
-// Override hover states for mobile touch
-$("button").on("touchstart", function () {
-  $(this).removeClass("mobileHoverFix");
-});
-$("button").on("touchend", function () {
-  $(this).addClass("mobileHoverFix");
-});
-
 // Setting Province List
 provinceList.innerHTML = `
     <option value="none" class="text-secondary" selected>- Province -</option>`;
