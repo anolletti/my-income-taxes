@@ -158,6 +158,12 @@ document
     document.getElementById("1").classList.remove("d-none");
   });
 
+document
+  .getElementById("section1reveal")
+  .addEventListener("touchstart", function () {
+    document.getElementById("1").classList.remove("d-none");
+  });
+
 // Create our number formatter.
 
 function currencyFormatter() {
